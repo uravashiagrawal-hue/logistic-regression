@@ -37,4 +37,19 @@ plt.scatter(x[:,0],x[:,1],c=y,cmap='winter',s=100)
 plt.ylim(-3,2)
 plt.show()
 
+# through logistic regression
+from sklearn.linear_model import LogisticRegression
+lor = LogisticRegression()
+lor.fit(x,y)
 
+m = -(lor.coef_[0][0]/lor.coef_[0][1])
+b = -(lor.intercept_/lor.coef_[0][1])
+x_input1 = np.linspace(-3,3,100)
+y_input1 = m*x_input1 + b
+
+plt.figure(figsize=(10,6))
+plt.plot(x_input,y_input,color='red',linewidth=3)
+plt.plot(x_input1,y_input1,color='black',linewidth=3)
+plt.scatter(x[:,0],x[:,1],c=y,cmap='winter',s=100)
+plt.ylim(-3,2)
+plt.show()
