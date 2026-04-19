@@ -53,3 +53,23 @@ plt.plot(x_input1,y_input1,color='black',linewidth=3)
 plt.scatter(x[:,0],x[:,1],c=y,cmap='winter',s=100)
 plt.ylim(-3,2)
 plt.show()
+
+
+
+
+# by using sigmoid function
+def perceptron(X,y):
+
+    X = np.insert(X,0,1,axis=1)
+    weights = np.ones(X.shape[1])
+    lr = 0.1
+
+    for i in range(1000):
+        j = np.random.randint(0,100)
+        y_hat = sigmoid(np.dot(X[j],weights))
+        weights = weights + lr*(y[j]-y_hat)*X[j]
+
+    return weights[0],weights[1:]
+
+def sigmoid(z):
+    return 1/(1 + np.exp(-z))
