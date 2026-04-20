@@ -1,0 +1,49 @@
+import numpy as np
+from sklearn.datasets import make_classification
+x,y = make_classification(n_samples=100, n_features=2, n_informative=1, n_classes=2,n_redundant=0, n_clusters_per_class=1, random_state=41, hypercube=False, class_sep=20)
+
+import matplotlib.pyplot as plt
+
+plt.figure(figsize =(10,6))
+plt.scatter(x[:,0], x[:,1],c=y, cmap='winter', s=100)
+plt.show()
+
+
+from sklearn.linear_model import LogisticRegression
+lor = LogisticRegression(penalty=None, solver='lbfgs')
+lor.fit(x,y)
+print(lor.coef_)
+print(lor.intercept_)
+
+m1 = -(lor.coef_[0][0]/lor.coef_[0][1])
+b1 = -(lor.intercept_/lor.coef_[0][1])
+x_input = np.linspace(-3,3,100)
+y_input = m1*x_input+ b1
+
+def gd(x,y):
+	x=np.insert(x,0,1,axis = 1)
+	weights= np.ones(x.shape[1])
+	lr =0.5
+
+	for i in range(5000):
+		y_hat = sigmoid(np.dot(x,weights))
+		weights = weights + lr*(np.dot((y-y_hat),x)/x.shape[0])
+
+	return weights[1:], weights[0]
+
+def sigmoid(z):
+	return 1/(1+np.exp(-z))
+
+coef_,intercept_ = gd(x,y)
+m = -(coef_[0]/coef_[1])
+b= -(intercept_/coef_[1])
+
+x_input1 = np.linspace(-3,3,100)
+y_input1 = m*x_input1+b
+
+plt.figure(figsize=(10,6))
+plt.plot(x_input,y_input,color='red',linewidth=3)
+plt.plot(x_input1,y_input1,color='black',linewidth=3)
+plt.scatter(x[:,0],x[:,1],c=y,cmap='winter',s=100)
+plt.ylim(-3,2)
+plt.show()

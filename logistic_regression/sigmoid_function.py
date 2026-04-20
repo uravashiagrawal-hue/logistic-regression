@@ -58,18 +58,36 @@ plt.show()
 
 
 # by using sigmoid function
-def perceptron(X,y):
+def perceptron(x,y):
 
-    X = np.insert(X,0,1,axis=1)
-    weights = np.ones(X.shape[1])
+    X = np.insert(x,0,1,axis=1)
+    weights = np.ones(x.shape[1])
     lr = 0.1
 
     for i in range(1000):
         j = np.random.randint(0,100)
-        y_hat = sigmoid(np.dot(X[j],weights))
-        weights = weights + lr*(y[j]-y_hat)*X[j]
+        y_hat = sigmoid(np.dot(x[j],weights))
+        weights = weights + lr*(y[j]-y_hat)*x[j]
 
     return weights[0],weights[1:]
 
 def sigmoid(z):
     return 1/(1 + np.exp(-z))
+
+intercept_,coef_ = perceptron(x,y)
+
+if len(coef_) < 2:
+    print("Error: Need 2 coefficients to draw line")
+else:
+    m = -(coef_[0] / coef_[1])
+    b = -(intercept_ / coef_[1])
+b = -(intercept_/coef_[1])
+x_input2 = np.linspace(-3,3,100)
+y_input2 = m*x_input2 + b
+
+plt.figure(figsize=(10,6))
+plt.plot(x_input,y_input,color='red',linewidth=3)
+plt.plot(x_input1,y_input1,color='black',linewidth=3)
+plt.plot(x_input2,y_input2,color='brown',linewidth=3)
+plt.scatter(x[:,0],x[:,1],c=y,cmap='winter',s=100)
+plt.ylim(-3,2)
