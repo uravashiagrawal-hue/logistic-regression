@@ -20,3 +20,14 @@ df = pd.concat([df,df1], ignore_index = True)
 df = df.sample(40)
 print(df.head())
 
+import plotly.express as px
+fig = px.scatter_3d(df, x= df['feature1'], y = df['feature2'], z= df['feature3'], color=df['target'].astype('str'))
+fig.update_traces(marker=dict(size=12,
+                              line=dict(width=2,
+                                        color='DarkSlateGrey')),
+                  selector=dict(mode='markers'))
+
+fig.show()
+
+# step 1 - apply standard scaling
+
