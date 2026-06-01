@@ -30,4 +30,18 @@ fig.update_traces(marker=dict(size=12,
 fig.show()
 
 # step 1 - apply standard scaling
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+df.iloc[:,0:3] = scaler.fit_transform(df.iloc[:,0:3])
+
+
+# step 2 to find covariance matrix
+covariance_matrix = np.cov([df.iloc[:,0],df.iloc[:,1],df.iloc[:,2]])
+print('Covariance Matrix:\n', covariance_matrix)
+
+# finding EV and EVs
+eigen_values, eigen_vectors= np.linalg.eig(covariance_matrix)
+print(eigen_values)
+print(eigen_vectors)
+
 
