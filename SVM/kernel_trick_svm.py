@@ -9,5 +9,5 @@ from matplotlib.colors import ListedColormap
 
 from sklearn.datasets._samples_generator import make_circles
 X,y = make_circles(100, factor=.1, noise=.1)
-plt.scatter(X[:,0], X[:,1], c=y, s=4, cmap='bwr')
+plt.scatter(X[:,0], X[:,1], c=y, s=50, cmap='bwr')
 plt.show()
