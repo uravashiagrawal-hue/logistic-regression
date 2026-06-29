@@ -57,3 +57,19 @@ for i in range(1,4):
             print("for i={},j={},k={}".format(i,j,k),np.round(np.mean(x),2))
 
 
+from sklearn.svm import SVC
+from sklearn.datasets import make_classification
+
+X, y = make_classification(n_samples=1000, n_features=20, n_informative=15, n_redundant=5, random_state=2)
+
+svm1 = SVC(probability=True, kernel='poly', degree=1)
+svm2 = SVC(probability=True, kernel='poly', degree=2)
+svm3 = SVC(probability=True, kernel='poly', degree=3)
+svm4 = SVC(probability=True, kernel='poly', degree=4)
+svm5 = SVC(probability=True, kernel='poly', degree=5)
+
+estimators = [('svm1',svm1),('svm2',svm2),('svm3',svm3),('svm4',svm4),('svm5',svm5)]
+
+for estimator in estimators:
+    x = cross_val_score(estimator[1],X,y,cv=10,scoring='accuracy')
+    print(estimator[0],np.round(np.mean(x),2))
