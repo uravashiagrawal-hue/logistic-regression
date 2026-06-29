@@ -73,3 +73,7 @@ estimators = [('svm1',svm1),('svm2',svm2),('svm3',svm3),('svm4',svm4),('svm5',sv
 for estimator in estimators:
     x = cross_val_score(estimator[1],X,y,cv=10,scoring='accuracy')
     print(estimator[0],np.round(np.mean(x),2))
+
+vc1 = VotingClassifier(estimators=estimators,voting='soft')
+x = cross_val_score(vc1,X,y,cv=10,scoring='accuracy')
+print(np.round(np.mean(x),2))
