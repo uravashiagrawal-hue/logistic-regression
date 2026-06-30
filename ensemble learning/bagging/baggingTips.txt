@@ -1,0 +1,5 @@
+BAGGING TIPS
+-> Bagging generally gives better results than Pasting
+-> Good results come around the 25% to 50% row sampling mark
+-> Random patches and subspaces should be used while dealing with high dimensional data
+-> To find the correct hyperparameter values we can do GridSearchCV/RandomSearchCV

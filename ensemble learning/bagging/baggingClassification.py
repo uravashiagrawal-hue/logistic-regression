@@ -71,3 +71,47 @@ print("Random Subspaces classifier",accuracy_score(y_test,y_pred))
 print(bag.estimators_samples_[0].shape)
 print(bag.estimators_features_[0].shape)
 
+# RANDOM PATCHES
+bag = BaggingClassifier(
+    base_estimator=DecisionTreeClassifier(),
+    n_estimators=500,
+    max_samples=0.25,
+    bootstrap=True,
+    max_features=0.5,
+    bootstrap_features=True,
+    random_state=42
+)
+
+bag.fit(X_train,y_train)
+y_pred = bag.predict(X_test)
+print("Random Patches classifier",accuracy_score(y_test,y_pred))
+
+# OOB SCORE
+bag = BaggingClassifier(
+    base_estimator=DecisionTreeClassifier(),
+    n_estimators=500,
+    max_samples=0.25,
+    bootstrap=True,
+    oob_score=True,
+    random_state=42
+)
+
+bag.fit(X_train,y_train)
+print(bag.oob_score_)
+y_pred = bag.predict(X_test)
+print("Accuracy",accuracy_score(y_test,y_pred))
+
+# APPLYING GridSearchCV
+from sklearn.model_selection import GridSearchCV
+
+
+parameters = {
+    'n_estimators': [50,100,500],
+    'max_samples': [0.1,0.4,0.7,1.0],
+    'bootstrap' : [True,False],
+    'max_features' : [0.1,0.4,0.7,1.0]
+    }
+search = GridSearchCV(BaggingClassifier(), parameters, cv=5)
+search.fit(X_train,y_train)
+search.best_params_
+search.best_score_
