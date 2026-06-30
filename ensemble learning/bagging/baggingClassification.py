@@ -39,3 +39,18 @@ bag = BaggingClassifier(
 bag.fit(X_train,y_train)
 y_pred = bag.predict(X_test)
 print("Bagging using SVM",accuracy_score(y_test,y_pred))
+
+# PASTING -> in pasting each model get a random sample without sample=> that is (bootstrap = true)
+bag = BaggingClassifier(
+    estimator=DecisionTreeClassifier(),
+    n_estimators=500,
+    max_samples=0.25,
+    bootstrap=False,
+    random_state=42,
+    verbose = 1,
+    n_jobs=-1
+)
+bag.fit(X_train,y_train)
+y_pred = bag.predict(X_test)
+print("Pasting classifier",accuracy_score(y_test,y_pred))
+
