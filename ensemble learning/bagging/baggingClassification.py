@@ -57,7 +57,7 @@ print("Pasting classifier",accuracy_score(y_test,y_pred))
 
 # RANDOM SUBSPACES
 bag = BaggingClassifier(
-    base_estimator=DecisionTreeClassifier(),
+    estimator=DecisionTreeClassifier(),
     n_estimators=500,
     max_samples=1.0,
     bootstrap=False,
@@ -73,7 +73,7 @@ print(bag.estimators_features_[0].shape)
 
 # RANDOM PATCHES
 bag = BaggingClassifier(
-    base_estimator=DecisionTreeClassifier(),
+    estimator=DecisionTreeClassifier(),
     n_estimators=500,
     max_samples=0.25,
     bootstrap=True,
@@ -88,7 +88,7 @@ print("Random Patches classifier",accuracy_score(y_test,y_pred))
 
 # OOB SCORE
 bag = BaggingClassifier(
-    base_estimator=DecisionTreeClassifier(),
+    estimator=DecisionTreeClassifier(),
     n_estimators=500,
     max_samples=0.25,
     bootstrap=True,
