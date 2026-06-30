@@ -54,3 +54,20 @@ bag.fit(X_train,y_train)
 y_pred = bag.predict(X_test)
 print("Pasting classifier",accuracy_score(y_test,y_pred))
 
+
+# RANDOM SUBSPACES
+bag = BaggingClassifier(
+    base_estimator=DecisionTreeClassifier(),
+    n_estimators=500,
+    max_samples=1.0,
+    bootstrap=False,
+    max_features=0.5,
+    bootstrap_features=True,
+    random_state=42
+)
+bag.fit(X_train,y_train)
+y_pred = bag.predict(X_test)
+print("Random Subspaces classifier",accuracy_score(y_test,y_pred))
+print(bag.estimators_samples_[0].shape)
+print(bag.estimators_features_[0].shape)
+
